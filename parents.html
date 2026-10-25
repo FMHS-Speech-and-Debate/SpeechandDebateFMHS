@@ -109,45 +109,19 @@
             padding: 0 20px;
         }
 
-        /* Callout Box */
-        .callout-card {
-            background: linear-gradient(135deg, var(--fmhs-navy) 0%, #112A55 100%);
-            color: #ffffff;
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 35px;
-            box-shadow: 0 8px 20px rgba(10, 30, 63, 0.2);
-            border-top: 5px solid var(--fmhs-gold);
-        }
-
-        .callout-card h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: var(--fmhs-gold);
-            margin: 0 0 10px 0;
-            text-transform: uppercase;
-        }
-
-        .callout-card p {
-            font-size: 1.05rem;
-            margin: 0 0 15px 0;
-            color: #E2E8F0;
-        }
-
         /* Section Title Styling */
         h2.section-title {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 900;
             color: var(--fmhs-navy);
             text-transform: uppercase;
             letter-spacing: 0.5px;
             margin-top: 40px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         h2.section-title::after {
@@ -158,84 +132,87 @@
             border-radius: 2px;
         }
 
-        /* Grid Layout */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+        /* Content Card Layout */
+        .content-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid #E2E8F0;
+            border-top: 4px solid var(--fmhs-navy);
             margin-bottom: 30px;
         }
 
-        .info-card {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            padding: 24px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            border: 1px solid #E2E8F0;
-        }
-
-        .info-card h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 800;
-            color: var(--fmhs-navy);
-            margin-top: 0;
-            margin-bottom: 12px;
-            font-size: 1.2rem;
-        }
-
-        .info-card ul {
-            padding-left: 20px;
-            margin: 0;
-        }
-
-        .info-card li {
-            margin-bottom: 8px;
+        p, li {
             color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
         }
 
-        /* FAQ Accordion Item Styling */
-        .faq-item {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 15px;
-            border: 1px solid #E2E8F0;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+        ul {
+            padding-left: 1.5rem;
+            margin-bottom: 0;
         }
 
-        .faq-item h3 {
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        a.link {
+            color: var(--nsda-blue);
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        label {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 800;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 0.4rem;
             color: var(--fmhs-navy);
-            margin: 0 0 8px 0;
         }
 
-        .faq-item p {
-            margin: 0;
-            color: var(--text-muted);
+        input, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #CBD5E1;
+            border-radius: 6px;
+            font-family: 'Open Sans', sans-serif;
             font-size: 0.95rem;
         }
 
-        /* Buttons & CTA Links */
-        .action-button {
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--nsda-blue);
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+
+        .cta-button {
             display: inline-block;
             background-color: var(--fmhs-gold);
             color: var(--fmhs-navy);
-            padding: 10px 22px;
-            text-decoration: none;
-            border-radius: 6px;
             font-family: 'Montserrat', sans-serif;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-top: 10px;
-            transition: transform 0.2s ease;
+            font-weight: 900;
+            padding: 0.85rem 1.8rem;
+            border-radius: 30px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 4px 10px rgba(234, 161, 35, 0.3);
+            margin-top: 0.5rem;
         }
 
-        .action-button:hover {
-            background-color: #d89018;
+        .cta-button:hover {
             transform: translateY(-2px);
+            background-color: #d8911b;
         }
 
         footer {
@@ -252,85 +229,56 @@
 
     <header>
         <div class="hero-badge">Fort Mill High School</div>
-        <h1>Parent & Judge Hub</h1>
-        <p>Your support makes our team's success possible!</p>
+        <h1>Parents &amp; Judges Hub</h1>
+        <p>Your support makes our debate team's success possible!</p>
     </header>
 
     <nav>
         <a href="index.html">Home</a>
         <a href="categories.html">Learn about Categories</a>
-        <a href="parents.html" class="active">Parents & Judges</a>
+        <a href="parents.html" class="active">Parents &amp; Judges</a>
+        <a href="sponsors.html">Sponsors</a>
     </nav>
 
     <main>
 
-        <!-- Callout Banner -->
-        <div class="callout-card">
-            <h2>Why We Need Volunteer Judges</h2>
-            <p>High school Speech & Debate tournaments rely on volunteer adult judges to function. Schools must provide a required ratio of judges based on the number of student entries. <strong>No prior debate experience is required!</strong> Training is provided before every tournament.</p>
-            <a href="#volunteer" class="action-button">Sign Up To Volunteer</a>
+        <h2 class="section-title">Why We Need You</h2>
+        <div class="content-card">
+            <p>High school Speech &amp; Debate tournaments rely completely on volunteer adult judges to function. Tournaments charge steep penalty fees if a school doesn't meet its required judge quota.</p>
+            <p>Having parent volunteers directly keeps club costs low and ensures every student has the opportunity to compete. <strong>No prior debate experience is required!</strong></p>
         </div>
 
-        <!-- How It Works Section -->
-        <h2 class="section-title">What to Expect as a Judge</h2>
-        <div class="grid-container">
-            <div class="info-card">
-                <h3>📋 Your Responsibilities</h3>
-                <ul>
-                    <li>Listen to student speeches or debates attentively.</li>
-                    <li>Keep track of time (timers provided on your phone).</li>
-                    <li>Submit scores and brief constructive feedback online via Tabroom.com.</li>
-                </ul>
-            </div>
-            <div class="info-card">
-                <h3>☕ Perks & Accommodation</h3>
-                <ul>
-                    <li>Complimentary hospitality lounge with full meals, snacks, and coffee throughout the day.</li>
-                    <li>Wi-Fi and dedicated quiet space between assigned rounds.</li>
-                    <li>Directly lower your student's team judge bond/fees!</li>
-                </ul>
-            </div>
+        <h2 class="section-title">What to Expect</h2>
+        <div class="content-card">
+            <ul>
+                <li><strong>Your Role:</strong> Listen attentively to student speeches or debates, keep track of time (timers provided on your phone), and submit scores.</li>
+                <li><strong>The Platform:</strong> All scoring and balloting is done digitally via <a href="https://www.tabroom.com" target="_blank" class="link">Tabroom.com</a>.</li>
+                <li><strong>The Perks:</strong> Enjoy our complimentary hospitality lounge featuring full meals, snacks, and coffee throughout the day!</li>
+            </ul>
         </div>
 
-        <!-- Judge Training Steps -->
-        <h2 class="section-title">Getting Started</h2>
-        <div class="grid-container">
-            <div class="info-card">
-                <h3>1. Create a Tabroom Account</h3>
-<p>All tournaments use <a href="https://www.tabroom.com" target="_blank"><strong>Tabroom.com</strong></a> to assign rounds and collect online ballots. Create a free account to link with FMHS.</p>            </div>
-            <div class="info-card">
-                <h3>2. Watch NSDA Training Videos</h3>
-                <p>The National Speech & Debate Association provides short 5-10 minute videos explaining how to judge each event type.</p>
-            </div>
-            <div class="info-card">
-                <h3>3. Attend On-Site Briefing</h3>
-                <p>Every tournament hosts a morning orientation session for judges to ask questions before the first round starts.</p>
-            </div>
-        </div>
+        <h2 class="section-title">Judge Interest Form</h2>
+        <div class="content-card" style="border-top-color: var(--fmhs-gold);">
+            <p>Fill out the quick form below to let us know you're interested in judging, and our team coordinator will reach out with details:</p>
 
-        <!-- FAQ Section -->
-        <h2 class="section-title">Frequently Asked Questions</h2>
-        
-        <div class="faq-item">
-            <h3>Do I need to have debate experience to judge?</h3>
-            <p>Not at all! Tournaments encourage "lay judges" (everyday community members and parents) because students should learn to communicate persuasively to general audiences, not just debate experts.</p>
-        </div>
+            <form action="https://formspree.io/f/maeeqggw" method="POST">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Parent/Guardian Name">
+                </div>
 
-        <div class="faq-item">
-            <h3>How long is a tournament commitment?</h3>
-            <p>Tournaments typically run on Saturdays. You can sign up for a full day (usually 8:00 AM – 4:00 PM) or a half-day shift (Morning or Afternoon) depending on your availability.</p>
-        </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                </div>
 
-        <div class="faq-item">
-            <h3>What do I need to bring with me?</h3>
-            <p>A laptop or tablet with Wi-Fi capability is required to complete electronic ballots, along with a device charger and something comfortable to work on during downtime.</p>
-        </div>
+                <div class="form-group">
+                    <label for="availability">Which tournaments or dates can you help with?</label>
+                    <textarea id="availability" name="availability" rows="3" placeholder="e.g., Available for October 10 or October 17"></textarea>
+                </div>
 
-        <!-- Contact Section -->
-        <div id="volunteer" style="margin-top: 40px; text-align: center;" class="info-card">
-            <h3>Ready to Help or Have Questions?</h3>
-            <p>Contact our Parent Booster Coordinator or Coach to sign up for upcoming tournament judge slots!</p>
-            <a href="mailto:hradeca@fmsdmail.org" class="action-button">Email Coach / Parent Liaison</a>
+                <button type="submit" class="cta-button">Submit Judge Interest</button>
+            </form>
         </div>
 
     </main>
