@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="view-transition" content="same-origin">
     <title>Event Categories | FMHS Speech & Debate</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -173,14 +174,8 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             border: 1px solid #E2E8F0;
             border-top: 4px solid var(--catalog-accent);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
             display: flex;
             flex-direction: column;
-        }
-
-        .event-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
         }
 
         .event-tag {
