@@ -12,8 +12,8 @@
         :root {
             --fmhs-navy: #0A1E3F;
             --fmhs-gold: #EAA123;
-            --nsda-blue: #0066CC;
-            --bg-light: #F1F5F9;
+            --sponsor-accent: #047857; /* Deep professional trust green */
+            --bg-light: #F8FAFC;
             --card-bg: #FFFFFF;
             --text: #0F172A;
             --text-muted: #475569;
@@ -32,14 +32,40 @@
             background-color: var(--bg-light);
         }
 
-        /* Hero Header */
+        /* Hero Header with Watermark Logo */
         header {
-            background: linear-gradient(135deg, #030A19 0%, var(--fmhs-navy) 100%);
+            position: relative;
+            background: linear-gradient(135deg, #022C22 0%, var(--fmhs-navy) 100%);
             color: white;
-            padding: 40px 20px 35px;
+            padding: 45px 20px 40px;
             text-align: center;
             border-bottom: 6px solid var(--fmhs-gold);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 420px;
+            height: 420px;
+            background: url('team.photos/logo.png') no-repeat center center;
+            background-size: contain;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 1;
+            -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 75%);
+            mask-image: radial-gradient(circle, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 75%);
+        }
+
+        header .hero-badge, 
+        header h1, 
+        header p {
+            position: relative;
+            z-index: 2;
         }
 
         .hero-badge {
@@ -86,9 +112,9 @@
         nav a {
             color: #ffffff;
             text-decoration: none;
-            margin: 0 10px;
+            margin: 0 8px;
             font-family: 'Montserrat', sans-serif;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 800;
             letter-spacing: 0.8px;
             text-transform: uppercase;
@@ -132,14 +158,14 @@
             border-radius: 2px;
         }
 
-        /* Content Card Layout */
+        /* Professional Content Card Layout */
         .content-card {
             background-color: var(--card-bg);
             border-radius: 12px;
             padding: 30px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             border: 1px solid #E2E8F0;
-            border-top: 4px solid var(--fmhs-navy);
+            border-top: 4px solid var(--sponsor-accent);
             margin-bottom: 30px;
         }
 
@@ -161,9 +187,33 @@
         .tier-price {
             font-family: 'Montserrat', sans-serif;
             font-weight: 800;
-            color: var(--nsda-blue);
+            color: var(--sponsor-accent);
             font-size: 1.1rem;
             margin-bottom: 10px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* Corporate CTA Button Style */
+        .sponsor-btn {
+            display: inline-block;
+            background-color: var(--sponsor-accent);
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 0.9rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(4, 120, 87, 0.25);
+            transition: transform 0.2s, background-color 0.2s;
+            margin-top: 10px;
+        }
+
+        .sponsor-btn:hover {
+            transform: translateY(-2px);
+            background-color: #065f46;
         }
 
         footer {
@@ -179,9 +229,9 @@
 <body>
 
     <header>
-        <div class="hero-badge">Fort Mill High School</div>
-        <h1>Our Sponsors</h1>
-        <p>Blah blib blub gibberish sponsor header placeholder text here!</p>
+        <div class="hero-badge">Partner With Us</div>
+        <h1>Corporate & Community Sponsorships</h1>
+        <p>Invest in the next generation of critical thinkers, leaders, and advocates in Fort Mill.</p>
     </header>
 
     <nav>
@@ -189,37 +239,43 @@
         <a href="categories.html">Learn about Categories</a>
         <a href="parents.html">Parents & Judges</a>
         <a href="sponsors.html" class="active">Sponsors</a>
+        <a href="members.html">The Team</a>
     </nav>
 
     <main>
 
         <!-- Want to be a sponsor section -->
-        <h2 class="section-title">Want to Be a Sponsor?</h2>
+        <h2 class="section-title">Why Partner With FMHS Debate?</h2>
         <div class="content-card">
             <p>Flim flam grobnitz blorp zibble spork wumple krix. Shmoop zorple fribble gazoop blort minx zazzle plunk. Blah blib blub gibberish text explaining our absolute need for sponsors to help fund tournament travel, hotel fees, league dues, and supplies for students!</p>
             <p>Zorp ickle gribble pliff shmoop zazzle blorp. Snorfl zibble krix blibber flim flam gazoop.</p>
+            
+            <!-- Sponsor Button -->
+            <div style="margin-top: 20px;">
+                <a href="https://fortmillspeechanddebate.ludus.com" target="_blank" class="sponsor-btn">Secure Your Sponsorship</a>
+            </div>
         </div>
 
         <!-- Sponsor Tiers (Least Money Donated to Most) -->
-        <h2 class="section-title">Sponsorship Tiers & Rewards</h2>
+        <h2 class="section-title">Partnership Tiers &amp; Impact Levels</h2>
         
         <!-- Tier 1: Lowest -->
         <div class="content-card">
-            <div class="tier-price">$50 - Flim Flam Tier</div>
+            <div class="tier-price">Contributor Level — $50</div>
             <h3>Bronze Gribble Award</h3>
             <p>Zibble blorp zazzle shmoop krix gazoop blort flim flam. Blib blub spork zorp ickle pliff snorfl gribble. Random gibberish filler text for this low-tier donation reward package.</p>
         </div>
 
         <!-- Tier 2: Middle -->
         <div class="content-card">
-            <div class="tier-price">$250 - Blib Blub Tier</div>
+            <div class="tier-price">Advocate Level — $250</div>
             <h3>Silver Shmoop Award</h3>
             <p>Grobnitz zorple fribble minx plunk blort zibble krix. Blah blib blub gibberish text describing mid-tier sponsor perks, banner shoutouts, and digital recognition.</p>
         </div>
 
         <!-- Tier 3: Highest -->
         <div class="content-card" style="border-top-color: var(--fmhs-gold);">
-            <div class="tier-price">$1,000+ - Ultimate Zorple Tier</div>
+            <div class="tier-price">Champion Level — $1,000+</div>
             <h3>Gold Gazoop Champion Award</h3>
             <p>Maximum flim flam zazzle gribble spork shmoop zorp ickle blorp! High-tier sponsor benefits including custom logo placement, VIP tournament access, and supreme bragging rights.</p>
         </div>

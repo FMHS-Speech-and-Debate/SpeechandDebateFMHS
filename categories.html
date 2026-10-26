@@ -12,8 +12,8 @@
         :root {
             --fmhs-navy: #0A1E3F;
             --fmhs-gold: #EAA123;
-            --nsda-blue: #0066CC;
-            --bg-light: #F1F5F9;
+            --catalog-accent: #0284C7; /* Crisp academic blue */
+            --bg-light: #F8FAFC;
             --card-bg: #FFFFFF;
             --text: #0F172A;
             --text-muted: #475569;
@@ -32,14 +32,40 @@
             background-color: var(--bg-light);
         }
 
-        /* Hero Header */
+        /* Hero Header with Watermark Logo */
         header {
-            background: linear-gradient(135deg, #030A19 0%, var(--fmhs-navy) 100%);
+            position: relative;
+            background: linear-gradient(135deg, #021533 0%, var(--fmhs-navy) 100%);
             color: white;
-            padding: 40px 20px 35px;
+            padding: 45px 20px 40px;
             text-align: center;
             border-bottom: 6px solid var(--fmhs-gold);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 420px;
+            height: 420px;
+            background: url('team.photos/logo.png') no-repeat center center;
+            background-size: contain;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 1;
+            -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 75%);
+            mask-image: radial-gradient(circle, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 75%);
+        }
+
+        header .hero-badge, 
+        header h1, 
+        header p {
+            position: relative;
+            z-index: 2;
         }
 
         .hero-badge {
@@ -86,9 +112,9 @@
         nav a {
             color: #ffffff;
             text-decoration: none;
-            margin: 0 10px;
+            margin: 0 8px;
             font-family: 'Montserrat', sans-serif;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 800;
             letter-spacing: 0.8px;
             text-transform: uppercase;
@@ -104,7 +130,7 @@
 
         /* Container Layout */
         main {
-            max-width: 960px;
+            max-width: 1000px;
             margin: 30px auto 50px;
             padding: 0 20px;
         }
@@ -117,7 +143,7 @@
             color: var(--fmhs-navy);
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-top: 40px;
+            margin-top: 50px;
             margin-bottom: 25px;
             display: flex;
             align-items: center;
@@ -146,7 +172,7 @@
             padding: 26px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             border: 1px solid #E2E8F0;
-            border-top: 4px solid var(--fmhs-navy);
+            border-top: 4px solid var(--catalog-accent);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             display: flex;
             flex-direction: column;
@@ -162,8 +188,8 @@
             font-size: 0.75rem;
             font-weight: 800;
             text-transform: uppercase;
-            color: var(--fmhs-gold);
-            background-color: rgba(234, 161, 35, 0.12);
+            color: var(--catalog-accent);
+            background-color: rgba(2, 132, 199, 0.1);
             padding: 4px 10px;
             border-radius: 12px;
             display: inline-block;
@@ -188,12 +214,12 @@
         }
 
         .event-specs {
-            background-color: #F8FAFC;
+            background-color: #F1F5F9;
             border-radius: 8px;
             padding: 10px 14px;
             font-size: 0.85rem;
             color: var(--text-muted);
-            border-left: 3px solid var(--fmhs-gold);
+            border-left: 3px solid var(--catalog-accent);
         }
 
         .event-specs span {
@@ -214,8 +240,8 @@
 <body>
 
     <header>
-        <div class="hero-badge">Fort Mill High School</div>
-        <h1>Event Categories</h1>
+        <div class="hero-badge">Event Directory</div>
+        <h1>Learn About Categories</h1>
         <p>Explore all the debate, speech, and legislative events available to compete in!</p>
     </header>
 
@@ -224,6 +250,7 @@
         <a href="categories.html" class="active">Learn about Categories</a>
         <a href="parents.html">Parents & Judges</a>
         <a href="sponsors.html">Sponsors</a>
+        <a href="members.html">The Team</a>
     </nav>
 
     <main>
@@ -232,10 +259,10 @@
         <h2 class="section-title">Legislative Debate</h2>
         <div class="category-grid">
             <div class="event-card" style="border-top-color: var(--fmhs-gold);">
-                <span class="event-tag">Mock Congress</span>
+                <span class="event-tag" style="color: var(--fmhs-gold); background-color: rgba(234, 161, 35, 0.12);">Mock Congress</span>
                 <h3>Congressional Debate</h3>
                 <p>Ever watched Congress on TV and thought, "I could do a much better job"? Here’s your chance to prove it. In Congress, you simulate actual lawmakers by debating fake bills, giving short speeches, and grilling other students with questions. It’s loud, fast, and awesome for building real leadership, quick thinking, and confidence in front of a crowd.</p>
-                <div class="event-specs">
+                <div class="event-specs" style="border-left-color: var(--fmhs-gold);">
                     <span>Format:</span> Individual / Chamber Assembly | <span>Prep:</span> Docket-based
                 </div>
             </div>
@@ -266,7 +293,7 @@
             <div class="event-card">
                 <span class="event-tag">2v2 Policy Debate</span>
                 <h3>Policy Debate (CX)</h3>
-                <p>If you want a intense, deep-dive challenge where you become an absolute expert on a topic, Policy is for you. You and a partner spend the year researching massive national problems and proposing specific solutions. It takes a ton of dedication and evidence, but nothing beats the rush of out-maneuvering another team with sheer research and strategy.</p>
+                <p>If you want an intense, deep-dive challenge where you become an absolute expert on a topic, Policy is for you. You and a partner spend the year researching massive national problems and proposing specific solutions. It takes a ton of dedication and evidence, but nothing beats the rush of out-maneuvering another team with sheer research and strategy.</p>
                 <div class="event-specs">
                     <span>Format:</span> 2 vs 2 | <span>Topics:</span> Year-long Resolution
                 </div>
@@ -323,7 +350,7 @@
             <div class="event-card">
                 <span class="event-tag">Acting / Drama</span>
                 <h3>Dramatic Interp (DI)</h3>
-                <p>If you love theater, deep acting, and pushing yourself emotionally, DI lets you take center stage. You choose a powerful script or book excerpt and act out a intense story all by yourself, without any props or costumes. It’s raw, emotional, and lets you bring incredible characters to life using just your voice and expressions.</p>
+                <p>If you love theater, deep acting, and pushing yourself emotionally, DI lets you take center stage. You choose a powerful script or book excerpt and act out an intense story all by yourself, without any props or costumes. It’s raw, emotional, and lets you bring incredible characters to life using just your voice and expressions.</p>
                 <div class="event-specs">
                     <span>Format:</span> Solo Performance | <span>Time Limit:</span> 10 Minutes
                 </div>
