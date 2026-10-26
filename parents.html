@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="view-transition" content="same-origin">
     <title>Parents & Judges Hub | FMHS Speech & Debate</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,7 +33,25 @@
             background-color: var(--bg-light);
         }
 
-        /* Hero Header with Watermark Logo */
+        /* Dynamic Scroll Fade Classes */
+        .fade-element {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            will-change: opacity, transform;
+        }
+
+        .fade-element.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-element.out-view {
+            opacity: 0;
+            transform: translateY(-40px);
+        }
+
+        /* Hero Header with Watermark Logo & Scroll Fade Optimization */
         header {
             position: relative;
             background: linear-gradient(135deg, #1E3A8A 0%, var(--fmhs-navy) 100%);
@@ -42,6 +61,9 @@
             border-bottom: 6px solid var(--fmhs-gold);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
             overflow: hidden;
+            z-index: 10;
+            will-change: opacity;
+            transition: opacity 0.1s ease-out;
         }
 
         header::before {
@@ -269,14 +291,14 @@
 
     <main>
 
-        <h2 class="section-title">Why We Need You</h2>
-        <div class="content-card">
+        <h2 class="section-title fade-element">Why We Need You</h2>
+        <div class="content-card fade-element">
             <p>High school Speech &amp; Debate tournaments rely completely on volunteer adult judges to function. Tournaments charge steep penalty fees if a school doesn't meet its required judge quota.</p>
             <p>Having parent volunteers directly keeps club costs low and ensures every student has the opportunity to compete. <strong>No prior debate experience is required!</strong></p>
         </div>
 
-        <h2 class="section-title">What to Expect</h2>
-        <div class="content-card">
+        <h2 class="section-title fade-element">What to Expect</h2>
+        <div class="content-card fade-element">
             <ul>
                 <li><strong>Your Role:</strong> Listen attentively to student speeches or debates, keep track of time (timers provided on your phone), and submit scores.</li>
                 <li><strong>The Platform:</strong> All scoring and balloting is done digitally via <a href="https://www.tabroom.com" target="_blank" class="link">Tabroom.com</a>.</li>
@@ -284,8 +306,8 @@
             </ul>
         </div>
 
-        <h2 class="section-title">Judge Interest Form</h2>
-        <div class="content-card" style="border-top-color: var(--fmhs-gold);">
+        <h2 class="section-title fade-element">Judge Interest Form</h2>
+        <div class="content-card fade-element" style="border-top-color: var(--fmhs-gold);">
             <p>Fill out the quick form below to let us know you're interested in judging, and our team coordinator will reach out with details:</p>
 
             <form action="https://formspree.io/f/maeeqggw" method="POST">
@@ -313,6 +335,45 @@
     <footer>
         <p>© FMHS Speech & Debate Club | Contact: hradeca@fmsdmail.org</p>
     </footer>
+
+    <!-- Two-Way Scroll Observer Script -->
+    <script>
+        // 1. Header scroll fade-out
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            const scrollPosition = window.scrollY;
+            const fadeLimit = 300; 
+            
+            let opacity = 1 - (scrollPosition / fadeLimit);
+            if (opacity < 0) opacity = 0;
+            if (opacity > 1) opacity = 1;
+            
+            header.style.opacity = opacity;
+        });
+
+        // 2. Elements scroll reveal fade-in/fade-out
+        const observerOptions = {
+            root: null,
+            rootMargin: '-50px 0px -50px 0px',
+            threshold: 0.05
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    entry.target.classList.remove('out-view');
+                } else {
+                    entry.target.classList.remove('in-view');
+                    entry.target.classList.add('out-view');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-element').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
 
 </body>
 </html>

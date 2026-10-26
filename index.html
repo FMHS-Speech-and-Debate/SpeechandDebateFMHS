@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="view-transition" content="same-origin">
     <title>FMHS Speech & Debate | Official Guide</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +13,7 @@
             --fmhs-navy: #0A1E3F;
             --fmhs-gold: #EAA123;
             --nsda-blue: #0066CC;
-            --donate-green: #047857; /* Matches your sponsor trust green */
+            --donate-green: #047857;
             --bg-light: #F1F5F9;
             --card-bg: #FFFFFF;
             --text: #0F172A;
@@ -34,7 +33,25 @@
             background-color: var(--bg-light);
         }
 
-        /* Hero Banner with Faded Background Logo Watermark */
+        /* Dynamic Scroll Fade Classes */
+        .fade-element {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            will-change: opacity, transform;
+        }
+
+        .fade-element.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-element.out-view {
+            opacity: 0;
+            transform: translateY(-40px);
+        }
+
+        /* Hero Banner */
         header {
             position: relative;
             background: linear-gradient(135deg, #030A19 0%, var(--fmhs-navy) 100%);
@@ -44,6 +61,7 @@
             border-bottom: 6px solid var(--fmhs-gold);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
             overflow: hidden;
+            z-index: 10;
         }
 
         header::before {
@@ -207,7 +225,7 @@
             color: var(--fmhs-gold);
         }
 
-        /* Donation Highlight Card (Near Top) */
+        /* Donation Highlight Card */
         .donate-highlight-card {
             background-color: var(--card-bg);
             border-radius: 12px;
@@ -397,7 +415,7 @@
         .team-photo-card img {
             width: 100%;
             max-height: 480px;
-            object-ref: cover;
+            object-fit: cover;
             display: block;
             background-color: #CBD5E1;
         }
@@ -531,7 +549,7 @@
 
     <main>
         <!-- First Meeting Callout -->
-        <div class="poster-card">
+        <div class="poster-card fade-element">
             <div class="tag">First Meeting Alert</div>
             <h2>Interested in Joining?</h2>
             <p style="font-size: 1.15rem; margin: 0 0 10px 0; color: #E2E8F0;">Come check us out! No prior experience needed.</p>
@@ -543,8 +561,8 @@
             </div>
         </div>
 
-        <!-- Quick Donation / Support Section (Added Near Top) -->
-        <div class="donate-highlight-card">
+        <!-- Quick Donation / Support Section -->
+        <div class="donate-highlight-card fade-element">
             <div class="donate-tag">Support The Team</div>
             <h3>Want to Help Our Competitors?</h3>
             <p>Every contribution directly helps fund tournament travel expenses, tournament registration fees, and essential research materials for our students.</p>
@@ -552,16 +570,16 @@
         </div>
 
         <!-- Meet Our Coaches Section -->
-        <h2 class="section-title">Meet Our Coaches</h2>
+        <h2 class="section-title fade-element">Meet Our Coaches</h2>
         <div class="brochure-grid">
-            <div class="coach-card">
+            <div class="coach-card fade-element">
                 <img src="https://via.placeholder.com/400x300?text=Coach+Photo" alt="Head Coach" class="coach-img">
                 <div class="coach-info">
                     <h3>Amber Hradec</h3>
                     <div class="title">Head Coach</div>
                 </div>
             </div>
-            <div class="coach-card">
+            <div class="coach-card fade-element">
                 <img src="https://via.placeholder.com/400x300?text=Assistant+Coach+Photo" alt="Assistant Coach" class="coach-img">
                 <div class="coach-info">
                     <h3>Danielle Carilli</h3>
@@ -571,8 +589,8 @@
         </div>
 
         <!-- Meet Our Members Section -->
-        <h2 class="section-title">Meet Our Members</h2>
-        <div class="team-photo-card">
+        <h2 class="section-title fade-element">Meet Our Members</h2>
+        <div class="team-photo-card fade-element">
             <img src="team.photos/2025-2026Team.png" alt="FMHS Speech and Debate Team Group Photo">
             <div class="team-photo-caption">
                 <h3>2025–2026 Team Photo</h3>
@@ -581,22 +599,22 @@
         </div>
 
         <!-- Weekly Schedule & Logistics -->
-        <h2 class="section-title">Schedule & Updates</h2>
+        <h2 class="section-title fade-element">Schedule & Updates</h2>
         <div class="brochure-grid">
-            <div class="info-card">
+            <div class="info-card fade-element">
                 <h3>🗓️ Regular Meetings</h3>
                 <p>Every <strong>Monday during Flex</strong> (3:10 PM – 4:20 PM) in <strong>Room B204</strong>.</p>
             </div>
-            <div class="info-card">
+            <div class="info-card fade-element">
                 <h3>📢 Google Classroom</h3>
                 <p>Keep an eye on our Google Classroom for upcoming <strong>workshops</strong>, <strong>practice rounds</strong>, and prep session schedules!</p>
             </div>
         </div>
 
         <!-- What We Do Feature Grid -->
-        <h2 class="section-title">What We Do</h2>
+        <h2 class="section-title fade-element">What We Do</h2>
         <div class="brochure-grid">
-            <div class="info-card">
+            <div class="info-card fade-element">
                 <h3>🗣️ Debate Events</h3>
                 <ul>
                     <li><strong>Public Forum:</strong> Team-based current events debate.</li>
@@ -604,7 +622,7 @@
                     <li><strong>Congressional Debate:</strong> Mock legislative debate on real bills.</li>
                 </ul>
             </div>
-            <div class="info-card">
+            <div class="info-card fade-element">
                 <h3>🎭 Speech Events</h3>
                 <ul>
                     <li><strong>Interpretation:</strong> Dramatic, Humorous, & Duo storytelling.</li>
@@ -614,8 +632,8 @@
         </div>
 
         <!-- Tournament Dates Table -->
-        <h2 class="section-title">Tournament Schedule</h2>
-        <div class="table-container">
+        <h2 class="section-title fade-element">Tournament Schedule</h2>
+        <div class="table-container fade-element">
             <table>
                 <thead>
                     <tr>
@@ -685,7 +703,7 @@
         </div>
 
         <!-- CTA Box -->
-        <div class="cta-banner">
+        <div class="cta-banner fade-element">
             <h3>Parents & Volunteer Judges Needed!</h3>
             <p>Volunteering as a judge keeps team fees low and allows every student to compete.</p>
             <a href="parents.html" class="cta-button">Visit Parent & Judge Hub</a>
@@ -695,6 +713,34 @@
     <footer>
         <p>© FMHS Speech & Debate Club | Contact: hradeca@fmsdmail.org</p>
     </footer>
+
+    <!-- Two-Way Scroll Observer Script -->
+    <script>
+        const observerOptions = {
+            root: null,
+            // Custom top/bottom margins so elements fade out right before leaving the screen bounds
+            rootMargin: '-50px 0px -50px 0px',
+            threshold: 0.05
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Scrolling into view (from bottom or top)
+                    entry.target.classList.add('in-view');
+                    entry.target.classList.remove('out-view');
+                } else {
+                    // Scrolling out of view
+                    entry.target.classList.remove('in-view');
+                    entry.target.classList.add('out-view');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-element').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
 
 </body>
 </html>
