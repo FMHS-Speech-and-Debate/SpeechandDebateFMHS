@@ -24,6 +24,7 @@
             box-sizing: border-box;
         }
 
+        /* Smooth Fade-In on Page Load */
         body {
             font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
@@ -31,13 +32,49 @@
             padding: 0;
             color: var(--text);
             background-color: var(--bg-light);
+            opacity: 0;
+            transform: scale(0.98);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out, background-color 1s ease-in-out;
+        }
+
+        body.page-loaded {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Cinematic Page Transition Overlay & Fade-out (1 Second) */
+        .page-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--fmhs-navy);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.6s ease-in-out;
+            z-index: 9999;
+        }
+
+        body.transitioning .page-overlay {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        body.transitioning main, 
+        body.transitioning header, 
+        body.transitioning nav,
+        body.transitioning footer {
+            opacity: 0;
+            transform: scale(0.98);
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
         }
 
         /* Dynamic Scroll Fade Classes */
         .fade-element {
             opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            transform: translateY(30px);
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
             will-change: opacity, transform;
         }
 
@@ -48,7 +85,7 @@
 
         .fade-element.out-view {
             opacity: 0;
-            transform: translateY(-40px);
+            transform: translateY(-30px);
         }
 
         /* Hero Banner */
@@ -62,6 +99,8 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
             overflow: hidden;
             z-index: 10;
+            will-change: opacity;
+            transition: opacity 0.1s ease-out;
         }
 
         header::before {
@@ -532,6 +571,9 @@
 </head>
 <body>
 
+    <!-- Cinematic Transition Screen Overlay -->
+    <div class="page-overlay"></div>
+
     <header>
         <div class="hero-badge">Fort Mill High School</div>
         <h1>Speech & Debate</h1>
@@ -714,23 +756,59 @@
         <p>© FMHS Speech & Debate Club | Contact: hradeca@fmsdmail.org</p>
     </footer>
 
-    <!-- Two-Way Scroll Observer Script -->
+    <!-- Optimized 1-Second Speed Script -->
     <script>
+        // 1. Smooth Fade-In on Page Load
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.body.classList.add('page-loaded');
+            }, 50);
+        });
+
+        // 2. Cinematic 1-Second Fade Transition Handler
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('nav a, a.cta-button').forEach(link => {
+                const href = link.getAttribute('href');
+                if (href && !href.startsWith('http') && !href.startsWith('#')) {
+                    link.addEventListener('click', e => {
+                        e.preventDefault();
+                        document.body.classList.add('transitioning');
+                        
+                        // 1-second cinematic delay before page load
+                        setTimeout(() => {
+                            window.location.href = href;
+                        }, 1000); 
+                    });
+                }
+            });
+        });
+
+        // 3. Header scroll fade-out
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            const scrollPosition = window.scrollY;
+            const fadeLimit = 300; 
+            
+            let opacity = 1 - (scrollPosition / fadeLimit);
+            if (opacity < 0) opacity = 0;
+            if (opacity > 1) opacity = 1;
+            
+            header.style.opacity = opacity;
+        });
+
+        // 4. Elements smooth scroll reveal
         const observerOptions = {
             root: null,
-            // Custom top/bottom margins so elements fade out right before leaving the screen bounds
-            rootMargin: '-50px 0px -50px 0px',
-            threshold: 0.05
+            rootMargin: '0px 0px -50px 0px',
+            threshold: 0.1
         };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // Scrolling into view (from bottom or top)
                     entry.target.classList.add('in-view');
                     entry.target.classList.remove('out-view');
                 } else {
-                    // Scrolling out of view
                     entry.target.classList.remove('in-view');
                     entry.target.classList.add('out-view');
                 }

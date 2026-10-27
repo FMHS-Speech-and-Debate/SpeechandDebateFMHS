@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="view-transition" content="same-origin">
     <title>Meet the Team | FMHS Speech & Debate</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,6 +23,7 @@
             box-sizing: border-box;
         }
 
+        /* Smooth Fade-In on Page Load */
         body {
             font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
@@ -31,6 +31,42 @@
             padding: 0;
             color: var(--text);
             background-color: var(--bg-light);
+            opacity: 0;
+            transform: scale(0.98);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out, background-color 1s ease-in-out;
+        }
+
+        body.page-loaded {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Cinematic Page Transition Overlay & Fade-out (1 Second) */
+        .page-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--fmhs-navy);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.6s ease-in-out;
+            z-index: 9999;
+        }
+
+        body.transitioning .page-overlay {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        body.transitioning main, 
+        body.transitioning header, 
+        body.transitioning nav,
+        body.transitioning footer {
+            opacity: 0;
+            transform: scale(0.98);
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
         }
 
         /* Dynamic Scroll Fade Classes */
@@ -180,58 +216,101 @@
             border-radius: 2px;
         }
 
-        /* Fun Photo Grid Layout */
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
+        /* Apple-Style Immersive Zoom Scrollytelling Section */
+        .zoom-gallery-container {
+            position: relative;
+            width: 100%;
+            margin-top: 30px;
+            margin-bottom: 50px;
         }
 
-        .photo-card {
-            background-color: var(--card-bg);
-            border-radius: 14px;
+        .zoom-card-wrapper {
+            height: 130vh;
+            position: relative;
+        }
+
+        .zoom-card {
+            position: sticky;
+            top: 15vh;
+            height: 70vh;
+            width: 100%;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-            border: 1px solid #E2E8F0;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .photo-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
-        }
-
-        .photo-placeholder {
-            height: 220px;
-            background: linear-gradient(135deg, #CBD5E1 0%, #94A3B8 100%);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            background-color: var(--fmhs-navy);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #334155;
+            transition: transform 0.1s linear, border-radius 0.1s linear;
+            will-change: transform;
+        }
+
+        .zoom-card img, 
+        .zoom-card .zoom-placeholder {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            filter: brightness(0.7);
+            transition: filter 0.3s ease;
+        }
+
+        .zoom-placeholder {
+            background: linear-gradient(135deg, #0A1E3F 0%, #1E3A8A 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
             font-family: 'Montserrat', sans-serif;
             font-weight: 800;
-            font-size: 0.95rem;
+            font-size: 1.2rem;
             text-align: center;
-            padding: 20px;
+            padding: 30px;
         }
 
-        .photo-info {
-            padding: 20px;
+        .zoom-overlay-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #ffffff;
+            padding: 0 30px;
+            max-width: 700px;
+            transform: translateY(20px);
+            opacity: 0.9;
+            transition: transform 0.3s ease, opacity 0.3s ease;
         }
 
-        .photo-info h3 {
+        .zoom-overlay-content h3 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.15rem;
-            font-weight: 800;
-            color: var(--fmhs-navy);
-            margin: 0 0 6px 0;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin: 0 0 10px 0;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
         }
 
-        .photo-info p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
+        .zoom-overlay-content p {
+            color: #E2E8F0;
+            font-size: 1.15rem;
             margin: 0;
+            font-weight: 600;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+        }
+
+        .zoom-badge {
+            display: inline-block;
+            background-color: var(--fmhs-gold);
+            color: var(--fmhs-navy);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.75rem;
+            padding: 5px 14px;
+            border-radius: 15px;
+            margin-bottom: 12px;
         }
 
         /* Quotes Showcase Section */
@@ -274,6 +353,9 @@
 </head>
 <body>
 
+    <!-- Cinematic Transition Screen Overlay -->
+    <div class="page-overlay"></div>
+
     <header>
         <div class="hero-badge">The Crew</div>
         <h1>Meet Our Members</h1>
@@ -308,36 +390,90 @@
         </div>
 
 
-        <h2 class="section-title fade-element">Captured in the Wild (Photo Grid)</h2>
-        <p class="fade-element" style="color: var(--text-muted); margin-bottom: 20px;">Swap these placeholder cards out with your actual team photos (`team.photos` folder)!</p>
+        <h2 class="section-title fade-element">Captured in the Wild (Immersive Gallery)</h2>
+        <p class="fade-element" style="color: var(--text-muted); margin-bottom: 30px;">Scroll down to experience the team journey up close.</p>
 
-        <div class="photo-grid">
-            <!-- Photo 1 -->
-            <div class="photo-card fade-element">
-                <div class="photo-placeholder">[ Insert Fun Photo Here: Bus Ride Chaos ]</div>
-                <div class="photo-info">
-                    <h3>7:00 AM Tournament Departure</h3>
-                    <p>Too early to function, but ready to sweep the awards ceremony anyway.</p>
+        <!-- Scrollytelling Full-Screen Zoom Gallery (6 Items) -->
+        <div class="zoom-gallery-container">
+            
+            <!-- Photo Card 1 -->
+            <div class="zoom-card-wrapper">
+                <div class="zoom-card" data-zoom-card>
+                    <img src="team.photos/2025-2026Team.png" alt="Bus Ride Chaos">
+                    <div class="zoom-overlay-content">
+                        <div class="zoom-badge">Moment 01</div>
+                        <h3>7:00 AM Tournament Departure</h3>
+                        <p>Too early to function, but ready to sweep the awards ceremony anyway.</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Photo 2 -->                
-            <div class="photo-card fade-element">
-                <div class="photo-placeholder">[ Insert Fun Photo Here: Evidence Binder Meltdown ]</div>
-                <div class="photo-info">
-                    <h3>The Pre-Round Panic</h3>
-                    <p>Desperately highlighting 40 pages of cards 3 minutes before pairing release.</p>
+            <!-- Photo Card 2 -->
+            <div class="zoom-card-wrapper">
+                <div class="zoom-card" data-zoom-card>
+                    <div class="zoom-placeholder">
+                        [ Insert Fun Photo Here: Evidence Binder Meltdown ]
+                    </div>
+                    <div class="zoom-overlay-content">
+                        <div class="zoom-badge">Moment 02</div>
+                        <h3>The Pre-Round Panic</h3>
+                        <p>Desperately highlighting 40 pages of cards 3 minutes before pairing release.</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Photo 3 -->
-            <div class="photo-card fade-element">
-                <div class="photo-placeholder">[ Insert Fun Photo Here: Trophy Ceremony ]</div>
-                <div class="photo-info">
-                    <h3>We Actually Won!</h3>
-                    <p>Surviving rounds pays off. Look at those shiny plaques!</p>
+            <!-- Photo Card 3 -->
+            <div class="zoom-card-wrapper">
+                <div class="zoom-card" data-zoom-card>
+                    <img src="team.photos/logo.png" alt="Trophy Ceremony" style="object-fit: contain; padding: 40px; background: rgba(10,30,63,0.85);">
+                    <div class="zoom-overlay-content">
+                        <div class="zoom-badge">Moment 03</div>
+                        <h3>We Actually Won!</h3>
+                        <p>Surviving rounds pays off. Look at those shiny plaques!</p>
+                    </div>
                 </div>
             </div>
+
+            <!-- Photo Card 4 -->
+            <div class="zoom-card-wrapper">
+                <div class="zoom-card" data-zoom-card>
+                    <div class="zoom-placeholder">
+                        [ Insert Fun Photo Here: Judge Lounge Snacks ]
+                    </div>
+                    <div class="zoom-overlay-content">
+                        <div class="zoom-badge">Moment 04</div>
+                        <h3>Hospitality Lounge Legends</h3>
+                        <p>Finding out the judge lounge has free coffee and mini muffins changes everything.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo Card 5 -->
+            <div class="zoom-card-wrapper">
+                <div class="zoom-card" data-zoom-card>
+                    <img src="team.photos/2025-2026Team.png" alt="Late Night Prep">
+                    <div class="zoom-overlay-content">
+                        <div class="zoom-badge">Moment 05</div>
+                        <h3>Late Night Google Docs</h3>
+                        <p>Collaborating on blocks until 2 AM because passion never sleeps.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Photo Card 6 -->
+            <div class="zoom-card-wrapper">
+                <div class="zoom-card" data-zoom-card>
+                    <div class="zoom-placeholder">
+                        [ Insert Fun Photo Here: State Championship Group ]
+                    </div>
+                    <div class="zoom-overlay-content">
+                        <div class="zoom-badge">Moment 06</div>
+                        <h3>State Championship Sweeps</h3>
+                        <p>All the hard work, late nights, and unhinged bus rides finally pay off.</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
     </main>
@@ -346,9 +482,53 @@
         <p>© FMHS Speech & Debate Club | Contact: hradeca@fmsdmail.org</p>
     </footer>
 
-    <!-- Two-Way Scroll Observer Script -->
+    <!-- Optimized Scripts: Scrollytelling Zoom, Fade-In, Transitions & Scroll Observer -->
     <script>
-        // 1. Header scroll fade-out
+        // 1. Smooth Fade-In on Page Load
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.body.classList.add('page-loaded');
+            }, 50);
+        });
+
+        // 2. Cinematic 1-Second Fade Transition Handler
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('nav a, a.cta-button, a.sponsor-btn').forEach(link => {
+                const href = link.getAttribute('href');
+                if (href && !href.startsWith('http') && !href.startsWith('#')) {
+                    link.addEventListener('click', e => {
+                        e.preventDefault();
+                        document.body.classList.add('transitioning');
+                        
+                        setTimeout(() => {
+                            window.location.href = href;
+                        }, 1000); 
+                    });
+                }
+            });
+        });
+
+        // 3. Apple-Style Scroll Zoom Effect
+        window.addEventListener('scroll', () => {
+            const wrappers = document.querySelectorAll('.zoom-card-wrapper');
+            
+            wrappers.forEach(wrapper => {
+                const card = wrapper.querySelector('[data-zoom-card]');
+                const rect = wrapper.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                
+                let progress = (windowHeight - rect.top) / (windowHeight + rect.height);
+                progress = Math.max(0, Math.min(1, progress));
+                
+                let scale = 0.85 + (progress * 0.2);
+                let borderRadius = Math.max(0, 20 - (progress * 20));
+                
+                card.style.transform = `scale(${scale})`;
+                card.style.borderRadius = `${borderRadius}px`;
+            });
+        });
+
+        // 4. Header scroll fade-out
         window.addEventListener('scroll', function() {
             const header = document.querySelector('header');
             const scrollPosition = window.scrollY;
@@ -361,11 +541,11 @@
             header.style.opacity = opacity;
         });
 
-        // 2. Elements scroll reveal fade-in/fade-out
+        // 5. Elements smooth scroll reveal
         const observerOptions = {
             root: null,
-            rootMargin: '-50px 0px -50px 0px',
-            threshold: 0.05
+            rootMargin: '0px 0px -50px 0px',
+            threshold: 0.1
         };
 
         const observer = new IntersectionObserver((entries) => {
