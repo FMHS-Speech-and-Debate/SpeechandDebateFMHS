@@ -12,6 +12,7 @@
         * { box-sizing:border-box; }
         body { font-family:'Open Sans',-apple-system,BlinkMacSystemFont,sans-serif; line-height:1.6; margin:0; padding:0; color:var(--text); background-color:var(--bg-light); opacity:0; transform:scale(.98); transition:opacity .8s ease-out,transform .8s ease-out,background-color 1s ease-in-out; }
         body.page-loaded { opacity:1; transform:scale(1); }
+        body.modal-open { overflow:hidden; }
         .page-overlay { position:fixed; inset:0; background-color:var(--fmhs-navy); opacity:0; pointer-events:none; transition:opacity .6s ease-in-out; z-index:9999; }
         body.transitioning .page-overlay { opacity:1; pointer-events:auto; }
         body.transitioning main,body.transitioning header,body.transitioning nav,body.transitioning footer { opacity:0; transform:scale(.98); transition:opacity .8s ease-in-out,transform .8s ease-in-out; }
@@ -36,15 +37,15 @@
         .quote-text { font-style:italic; font-size:1.05rem; color:var(--fmhs-navy); font-weight:600; margin-bottom:12px; }
         .quote-author { font-family:'Montserrat',sans-serif; font-weight:800; font-size:.9rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; }
 
-        /* One timeline entry per competition; its details reveal that event's photo collection. */
+        /* One featured photo per competition; remaining event photos open in a scrollable lightbox. */
         .competition-timeline { position:relative; margin:30px 0 50px; padding-left:34px; }
         .competition-timeline::before { content:''; position:absolute; left:10px; top:20px; bottom:20px; width:3px; border-radius:3px; background:var(--fmhs-gold); }
         .competition-entry { position:relative; }
         .competition-entry::before { content:''; position:absolute; left:-31px; top:22px; width:15px; height:15px; background:var(--fmhs-gold); border:4px solid var(--bg-light); border-radius:50%; box-shadow:0 0 0 2px var(--fmhs-navy); }
         .competition-feature { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr); background:#fff; border-radius:16px; overflow:hidden; box-shadow:0 10px 24px rgba(0,0,0,.14); border:1px solid rgba(10,30,63,.08); }
         .competition-cover { position:relative; min-height:340px; background:var(--fmhs-navy); overflow:hidden; }
-        .competition-cover img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:brightness(.82); transition:transform .4s ease,filter .3s ease; }
-        .competition-feature:hover .competition-cover img { transform:scale(1.035); filter:brightness(.9); }
+        .competition-cover img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:brightness(.86); transition:transform .4s ease,filter .3s ease; }
+        .competition-feature:hover .competition-cover img { transform:scale(1.035); filter:brightness(.96); }
         .competition-cover-label { position:absolute; left:16px; top:16px; z-index:1; background:var(--fmhs-gold); color:var(--fmhs-navy); border-radius:20px; padding:5px 12px; font:900 .72rem 'Montserrat',sans-serif; letter-spacing:.7px; text-transform:uppercase; }
         .competition-info { display:flex; flex-direction:column; justify-content:center; align-items:flex-start; padding:30px; }
         .competition-date { color:var(--text-muted); font:800 .78rem 'Montserrat',sans-serif; letter-spacing:1px; text-transform:uppercase; margin:0 0 8px; }
@@ -53,20 +54,26 @@
         .photo-count { font-weight:700; color:var(--fmhs-navy); margin-bottom:18px; }
         .photo-toggle { display:inline-flex; align-items:center; gap:10px; background:var(--fmhs-navy); color:#fff; border:2px solid var(--fmhs-gold); border-radius:8px; padding:11px 16px; font:800 .84rem 'Montserrat',sans-serif; letter-spacing:.4px; cursor:pointer; transition:background .2s ease,color .2s ease,transform .2s ease; }
         .photo-toggle:hover { background:var(--fmhs-gold); color:var(--fmhs-navy); transform:translateY(-2px); }
-        .photo-toggle .toggle-icon { color:var(--fmhs-gold); font-size:1.1rem; transition:transform .25s ease; }
+        .photo-toggle .toggle-icon { color:var(--fmhs-gold); font-size:1.1rem; }
         .photo-toggle:hover .toggle-icon { color:var(--fmhs-navy); }
-        .competition-entry[open] .toggle-icon { transform:rotate(45deg); }
-        .event-photos { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; padding:20px 0 0; }
-        .event-photo { margin:0; overflow:hidden; border-radius:14px; background:#fff; box-shadow:0 6px 18px rgba(0,0,0,.12); border-bottom:4px solid var(--fmhs-gold); }
-        .event-photo img { display:block; width:100%; height:clamp(230px,32vw,390px); object-fit:cover; background:var(--fmhs-navy); transition:transform .35s ease; }
-        .event-photo:hover img { transform:scale(1.025); }
-        .event-photo figcaption { padding:10px 14px; color:var(--fmhs-navy); font:800 .78rem 'Montserrat',sans-serif; letter-spacing:.6px; text-transform:uppercase; }
+        .gallery-modal { position:fixed; inset:0; z-index:10000; display:none; align-items:center; justify-content:center; padding:24px; background:rgba(4,13,30,.78); backdrop-filter:blur(5px); }
+        .gallery-modal.is-open { display:flex; }
+        .gallery-dialog { position:relative; width:min(820px,100%); max-height:min(90vh,900px); overflow-y:auto; overscroll-behavior:contain; background:var(--bg-light); border:3px solid var(--fmhs-gold); border-radius:16px; box-shadow:0 24px 70px rgba(0,0,0,.45); padding:26px; scroll-behavior:smooth; }
+        .gallery-dialog:focus { outline:3px solid var(--bright-accent); outline-offset:3px; }
+        .gallery-dialog h3 { margin:0 64px 4px 0; color:var(--fmhs-navy); font:900 clamp(1.25rem,3vw,1.8rem)/1.2 'Montserrat',sans-serif; }
+        .gallery-dialog .gallery-date { margin:0 0 22px; color:var(--text-muted); font:800 .78rem 'Montserrat',sans-serif; letter-spacing:.8px; text-transform:uppercase; }
+        .gallery-close { position:sticky; top:0; float:right; margin:-10px -10px 0 12px; z-index:3; width:44px; height:44px; display:grid; place-items:center; border:2px solid var(--fmhs-gold); border-radius:50%; background:var(--fmhs-navy); color:#fff; font:700 1.7rem/1 Arial,sans-serif; cursor:pointer; box-shadow:0 3px 12px rgba(0,0,0,.25); }
+        .gallery-close:hover,.gallery-close:focus-visible { background:var(--fmhs-gold); color:var(--fmhs-navy); outline:3px solid var(--bright-accent); outline-offset:2px; }
+        .gallery-photos { display:flex; flex-direction:column; gap:18px; clear:both; }
+        .gallery-photo { margin:0; overflow:hidden; border-radius:12px; background:#fff; box-shadow:0 6px 18px rgba(0,0,0,.14); border-bottom:4px solid var(--fmhs-gold); }
+        .gallery-photo img { display:block; width:100%; max-height:70vh; object-fit:contain; background:var(--fmhs-navy); }
+        .gallery-photo figcaption { padding:9px 14px; color:var(--fmhs-navy); font:800 .78rem 'Montserrat',sans-serif; letter-spacing:.6px; text-transform:uppercase; }
         footer { text-align:center; padding:35px 20px; background-color:var(--fmhs-navy); color:#94A3B8; border-top:4px solid var(--fmhs-gold); font-size:.9rem; }
         .footer-content { display:flex; flex-direction:column; align-items:center; gap:15px; max-width:600px; margin:0 auto; }
         .insta-btn { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); color:#fff; font-family:'Montserrat',sans-serif; font-weight:800; font-size:.85rem; text-transform:uppercase; letter-spacing:.8px; padding:8px 18px; border-radius:20px; text-decoration:none; box-shadow:0 4px 12px rgba(220,39,67,.3); transition:transform .2s ease,opacity .2s ease; }
         .insta-btn:hover { transform:translateY(-2px); opacity:.9; }
-        @media (max-width:760px) { .competition-feature { grid-template-columns:1fr; } .competition-cover { min-height:300px; } .competition-info { padding:24px; } .event-photo img { height:300px; } }
-        @media (max-width:520px) { header h1 { font-size:2.2rem; } nav { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; } nav a { margin:0; } main { padding:0 16px; } h2.section-title { font-size:1.45rem; } .competition-timeline { padding-left:26px; } .competition-timeline::before { left:7px; } .competition-entry::before { left:-25px; } .competition-cover { min-height:240px; } .competition-info { padding:20px; } .competition-info h3 { font-size:1.35rem; } .event-photos { grid-template-columns:1fr; } .event-photo img { height:auto; max-height:75vh; min-height:250px; } }
+        @media (max-width:760px) { .competition-feature { grid-template-columns:1fr; } .competition-cover { min-height:300px; } .competition-info { padding:24px; } }
+        @media (max-width:520px) { header h1 { font-size:2.2rem; } nav { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; } nav a { margin:0; } main { padding:0 16px; } h2.section-title { font-size:1.45rem; } .competition-timeline { padding-left:26px; } .competition-timeline::before { left:7px; } .competition-entry::before { left:-25px; } .competition-cover { min-height:240px; } .competition-info { padding:20px; } .competition-info h3 { font-size:1.35rem; } .gallery-modal { padding:10px; } .gallery-dialog { max-height:94vh; padding:18px; } .gallery-photo img { max-height:68vh; } }
         @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto !important; transition-duration:.01ms !important; animation-duration:.01ms !important; } }
     </style>
 </head>
@@ -92,10 +99,10 @@
         <div class="quote-card fade-element"><div class="quote-text">"My emotional support water bottle and I have survived 4 tournaments this semester and we are both running on 2% battery."</div><div class="quote-author">— Taylor, Dramatic Interpretation</div></div>
 
         <h2 class="section-title fade-element">Competition Timeline</h2>
-        <p class="fade-element" style="color:var(--text-muted);margin-bottom:30px;">Select a competition to browse its photos.</p>
+        <p class="fade-element" style="color:var(--text-muted);margin-bottom:30px;">Choose a competition to open its photo gallery.</p>
         <div class="competition-timeline">
-            <details class="competition-entry">
-                <summary class="competition-feature" aria-label="November 7, 2026 competition; open to view photos">
+            <article class="competition-entry">
+                <div class="competition-feature">
                     <div class="competition-cover">
                         <img src="team.photos/images/IMG_1829.jpeg" alt="Featured photo from the November 7, 2026 competition" loading="lazy">
                         <span class="competition-cover-label">Competition 01</span>
@@ -105,28 +112,36 @@
                         <h3>November Competition</h3>
                         <p>Photos and moments from the team's competition day.</p>
                         <span class="photo-count">14 photos</span>
-                        <span class="photo-toggle"><span class="toggle-icon" aria-hidden="true">＋</span><span class="toggle-label">View competition photos</span></span>
+                        <button class="photo-toggle" id="open-gallery" type="button" aria-haspopup="dialog" aria-controls="competition-gallery"><span class="toggle-icon" aria-hidden="true">▤</span>View competition photos</button>
                     </div>
-                </summary>
-                <div class="event-photos" aria-label="Photos from the November 7, 2026 competition">
-                    <figure class="event-photo"><img src="team.photos/images/IMG_1829.jpeg" alt="Competition photo 1" loading="lazy"><figcaption>Photo 01</figcaption></figure>
-                    <figure class="event-photo"><img src="team.photos/images/IMG_1830.jpeg" alt="Competition photo 2" loading="lazy"><figcaption>Photo 02</figcaption></figure>
-                    <figure class="event-photo"><img src="team.photos/images/IMG_1831.jpeg" alt="Competition photo 3" loading="lazy"><figcaption>Photo 03</figcaption></figure>
-                    <figure class="event-photo"><img src="team.photos/images/IMG_1835.jpeg" alt="Competition photo 4" loading="lazy"><figcaption>Photo 04</figcaption></figure>
-                    <figure class="event-photo"><img src="team.photos/images/IMG_1836.jpeg" alt="Competition photo 5" loading="lazy"><figcaption>Photo 05</figcaption></figure>
-                    <figure class="event-photo"><img src="team.photos/images/IMG_4868.jpeg" alt="Competition photo 6" loading="lazy"><figcaption>Photo 06</figcaption></figure>
-                    <figure class="event-photo"><img src="team.photos/images/IMG_4869.jpeg" alt="Competition photo 7" loading="lazy"><figcaption>Photo 07</figcaption></figure>
-                    <figure class="event-photo"><img src="team.photos/images/IMG_4870.jpeg" alt="Competition photo 8" loading="lazy"><figcaption>Photo 08</figcaption></figure>
-                    <figure class="event-photo"><img src="team.photos/images/IMG_4871.jpeg" alt="Competition photo 9" loading="lazy"><figcaption>Photo 09</figcaption></figure>
-                    <figure class="event-photo"><img src="team.photos/images/IMG_4872.jpeg" alt="Competition photo 10" loading="lazy"><figcaption>Photo 10</figcaption></figure>
-                    <figure class="event-photo"><img src="team.photos/images/IMG_4873.jpeg" alt="Competition photo 11" loading="lazy"><figcaption>Photo 11</figcaption></figure>
-                    <figure class="event-photo"><img src="team.photos/images/IMG_4874.jpeg" alt="Competition photo 12" loading="lazy"><figcaption>Photo 12</figcaption></figure>
-                    <figure class="event-photo"><img src="team.photos/images/IMG_4875.jpeg" alt="Competition photo 13" loading="lazy"><figcaption>Photo 13</figcaption></figure>
-                    <figure class="event-photo"><img src="team.photos/images/IMG_4876.jpeg" alt="Competition photo 14" loading="lazy"><figcaption>Photo 14</figcaption></figure>
                 </div>
-            </details>
+            </article>
         </div>
     </main>
+
+    <div class="gallery-modal" id="competition-gallery" aria-hidden="true">
+        <section class="gallery-dialog" role="dialog" aria-modal="true" aria-labelledby="gallery-title" tabindex="-1">
+            <button class="gallery-close" type="button" aria-label="Close photo gallery">×</button>
+            <h3 id="gallery-title">November Competition</h3>
+            <p class="gallery-date">November 7, 2026 · Photos 02–14</p>
+            <div class="gallery-photos">
+                <figure class="gallery-photo"><img src="team.photos/images/IMG_1830.jpeg" alt="Competition photo 2" loading="lazy"><figcaption>Photo 02</figcaption></figure>
+                <figure class="gallery-photo"><img src="team.photos/images/IMG_1831.jpeg" alt="Competition photo 3" loading="lazy"><figcaption>Photo 03</figcaption></figure>
+                <figure class="gallery-photo"><img src="team.photos/images/IMG_1835.jpeg" alt="Competition photo 4" loading="lazy"><figcaption>Photo 04</figcaption></figure>
+                <figure class="gallery-photo"><img src="team.photos/images/IMG_1836.jpeg" alt="Competition photo 5" loading="lazy"><figcaption>Photo 05</figcaption></figure>
+                <figure class="gallery-photo"><img src="team.photos/images/IMG_4868.jpeg" alt="Competition photo 6" loading="lazy"><figcaption>Photo 06</figcaption></figure>
+                <figure class="gallery-photo"><img src="team.photos/images/IMG_4869.jpeg" alt="Competition photo 7" loading="lazy"><figcaption>Photo 07</figcaption></figure>
+                <figure class="gallery-photo"><img src="team.photos/images/IMG_4870.jpeg" alt="Competition photo 8" loading="lazy"><figcaption>Photo 08</figcaption></figure>
+                <figure class="gallery-photo"><img src="team.photos/images/IMG_4871.jpeg" alt="Competition photo 9" loading="lazy"><figcaption>Photo 09</figcaption></figure>
+                <figure class="gallery-photo"><img src="team.photos/images/IMG_4872.jpeg" alt="Competition photo 10" loading="lazy"><figcaption>Photo 10</figcaption></figure>
+                <figure class="gallery-photo"><img src="team.photos/images/IMG_4873.jpeg" alt="Competition photo 11" loading="lazy"><figcaption>Photo 11</figcaption></figure>
+                <figure class="gallery-photo"><img src="team.photos/images/IMG_4874.jpeg" alt="Competition photo 12" loading="lazy"><figcaption>Photo 12</figcaption></figure>
+                <figure class="gallery-photo"><img src="team.photos/images/IMG_4875.jpeg" alt="Competition photo 13" loading="lazy"><figcaption>Photo 13</figcaption></figure>
+                <figure class="gallery-photo"><img src="team.photos/images/IMG_4876.jpeg" alt="Competition photo 14" loading="lazy"><figcaption>Photo 14</figcaption></figure>
+            </div>
+        </section>
+    </div>
+
     <footer>
         <div class="footer-content">
             <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="insta-btn">📸 Follow us on Instagram</a>
@@ -147,9 +162,31 @@
                 }
             });
         });
-        document.querySelectorAll('.competition-entry').forEach(entry => {
-            const label = entry.querySelector('.toggle-label');
-            entry.addEventListener('toggle', () => { label.textContent = entry.open ? 'Hide competition photos' : 'View competition photos'; });
+
+        const gallery = document.getElementById('competition-gallery');
+        const galleryDialog = gallery.querySelector('.gallery-dialog');
+        const openGalleryButton = document.getElementById('open-gallery');
+        const closeGalleryButton = gallery.querySelector('.gallery-close');
+        let lastFocusedElement;
+        function openGallery() {
+            lastFocusedElement = document.activeElement;
+            gallery.classList.add('is-open');
+            gallery.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('modal-open');
+            galleryDialog.scrollTop = 0;
+            closeGalleryButton.focus();
+        }
+        function closeGallery() {
+            gallery.classList.remove('is-open');
+            gallery.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('modal-open');
+            if (lastFocusedElement) lastFocusedElement.focus();
+        }
+        openGalleryButton.addEventListener('click', openGallery);
+        closeGalleryButton.addEventListener('click', closeGallery);
+        gallery.addEventListener('click', event => { if (event.target === gallery) closeGallery(); });
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape' && gallery.classList.contains('is-open')) closeGallery();
         });
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
