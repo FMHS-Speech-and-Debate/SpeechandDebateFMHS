@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meet the Team | FMHS Speech & Debate</title>
+    <title>Meet the Team | FMHS Speech &amp; Debate</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,800;0,900;1,800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
@@ -12,7 +12,7 @@
         * { box-sizing:border-box; }
         body { font-family:'Open Sans',-apple-system,BlinkMacSystemFont,sans-serif; line-height:1.6; margin:0; padding:0; color:var(--text); background-color:var(--bg-light); opacity:0; transform:scale(.98); transition:opacity .8s ease-out,transform .8s ease-out,background-color 1s ease-in-out; }
         body.page-loaded { opacity:1; transform:scale(1); }
-        .page-overlay { position:fixed; top:0; left:0; width:100vw; height:100vh; background-color:var(--fmhs-navy); opacity:0; pointer-events:none; transition:opacity .6s ease-in-out; z-index:9999; }
+        .page-overlay { position:fixed; inset:0; background-color:var(--fmhs-navy); opacity:0; pointer-events:none; transition:opacity .6s ease-in-out; z-index:9999; }
         body.transitioning .page-overlay { opacity:1; pointer-events:auto; }
         body.transitioning main,body.transitioning header,body.transitioning nav,body.transitioning footer { opacity:0; transform:scale(.98); transition:opacity .8s ease-in-out,transform .8s ease-in-out; }
         .fade-element { opacity:0; transform:translateY(40px); transition:opacity .5s ease-out,transform .5s ease-out; will-change:opacity,transform; }
@@ -35,24 +35,39 @@
         .quote-card { background:linear-gradient(135deg,#fff 0%,#F1F5F9 100%); border-radius:14px; padding:30px; box-shadow:0 4px 12px rgba(0,0,0,.05); border-left:6px solid var(--fmhs-gold); margin-bottom:20px; position:relative; }
         .quote-text { font-style:italic; font-size:1.05rem; color:var(--fmhs-navy); font-weight:600; margin-bottom:12px; }
         .quote-author { font-family:'Montserrat',sans-serif; font-weight:800; font-size:.9rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; }
-        /* Responsive photo grid in the existing navy-and-gold style. */
-        .zoom-gallery-container { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; width:100%; margin:30px 0 50px; }
-        .zoom-card-wrapper { min-width:0; }
-        .zoom-card { position:relative; height:clamp(240px,28vw,330px); width:100%; border-radius:16px; overflow:hidden; box-shadow:0 10px 24px rgba(0,0,0,.18); background-color:var(--fmhs-navy); display:flex; align-items:flex-end; justify-content:center; transition:transform .25s ease,box-shadow .25s ease; }
-        .zoom-card:hover { transform:translateY(-5px); box-shadow:0 16px 30px rgba(0,0,0,.25); }
-        .zoom-card img { width:100%; height:100%; object-fit:cover; position:absolute; inset:0; filter:brightness(.82); transition:transform .4s ease,filter .3s ease; }
-        .zoom-card:hover img { transform:scale(1.04); filter:brightness(.72); }
-        .zoom-overlay-content { position:relative; z-index:2; width:100%; max-width:none; padding:44px 18px 18px; text-align:left; color:#fff; background:linear-gradient(transparent,rgba(10,30,63,.92)); }
-        .zoom-overlay-content h3 { font-family:'Montserrat',sans-serif; font-size:1.2rem; font-weight:900; color:#fff; margin:0 0 6px; text-shadow:0 2px 8px rgba(0,0,0,.6); }
-        .zoom-overlay-content p { color:#E2E8F0; font-size:.9rem; line-height:1.45; margin:0; font-weight:600; text-shadow:0 1px 4px rgba(0,0,0,.6); }
-        .zoom-badge { display:inline-block; background-color:var(--fmhs-gold); color:var(--fmhs-navy); font-family:'Montserrat',sans-serif; font-weight:900; text-transform:uppercase; letter-spacing:1px; font-size:.68rem; padding:4px 10px; border-radius:15px; margin-bottom:8px; }
+
+        /* One timeline entry per competition; its details reveal that event's photo collection. */
+        .competition-timeline { position:relative; margin:30px 0 50px; padding-left:34px; }
+        .competition-timeline::before { content:''; position:absolute; left:10px; top:20px; bottom:20px; width:3px; border-radius:3px; background:var(--fmhs-gold); }
+        .competition-entry { position:relative; }
+        .competition-entry::before { content:''; position:absolute; left:-31px; top:22px; width:15px; height:15px; background:var(--fmhs-gold); border:4px solid var(--bg-light); border-radius:50%; box-shadow:0 0 0 2px var(--fmhs-navy); }
+        .competition-feature { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr); background:#fff; border-radius:16px; overflow:hidden; box-shadow:0 10px 24px rgba(0,0,0,.14); border:1px solid rgba(10,30,63,.08); }
+        .competition-cover { position:relative; min-height:340px; background:var(--fmhs-navy); overflow:hidden; }
+        .competition-cover img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:brightness(.82); transition:transform .4s ease,filter .3s ease; }
+        .competition-feature:hover .competition-cover img { transform:scale(1.035); filter:brightness(.9); }
+        .competition-cover-label { position:absolute; left:16px; top:16px; z-index:1; background:var(--fmhs-gold); color:var(--fmhs-navy); border-radius:20px; padding:5px 12px; font:900 .72rem 'Montserrat',sans-serif; letter-spacing:.7px; text-transform:uppercase; }
+        .competition-info { display:flex; flex-direction:column; justify-content:center; align-items:flex-start; padding:30px; }
+        .competition-date { color:var(--text-muted); font:800 .78rem 'Montserrat',sans-serif; letter-spacing:1px; text-transform:uppercase; margin:0 0 8px; }
+        .competition-info h3 { font:900 1.65rem/1.2 'Montserrat',sans-serif; color:var(--fmhs-navy); margin:0 0 12px; }
+        .competition-info p { color:var(--text-muted); margin:0 0 20px; }
+        .photo-count { font-weight:700; color:var(--fmhs-navy); margin-bottom:18px; }
+        .photo-toggle { display:inline-flex; align-items:center; gap:10px; background:var(--fmhs-navy); color:#fff; border:2px solid var(--fmhs-gold); border-radius:8px; padding:11px 16px; font:800 .84rem 'Montserrat',sans-serif; letter-spacing:.4px; cursor:pointer; transition:background .2s ease,color .2s ease,transform .2s ease; }
+        .photo-toggle:hover { background:var(--fmhs-gold); color:var(--fmhs-navy); transform:translateY(-2px); }
+        .photo-toggle .toggle-icon { color:var(--fmhs-gold); font-size:1.1rem; transition:transform .25s ease; }
+        .photo-toggle:hover .toggle-icon { color:var(--fmhs-navy); }
+        .competition-entry[open] .toggle-icon { transform:rotate(45deg); }
+        .event-photos { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; padding:20px 0 0; }
+        .event-photo { margin:0; overflow:hidden; border-radius:14px; background:#fff; box-shadow:0 6px 18px rgba(0,0,0,.12); border-bottom:4px solid var(--fmhs-gold); }
+        .event-photo img { display:block; width:100%; height:clamp(230px,32vw,390px); object-fit:cover; background:var(--fmhs-navy); transition:transform .35s ease; }
+        .event-photo:hover img { transform:scale(1.025); }
+        .event-photo figcaption { padding:10px 14px; color:var(--fmhs-navy); font:800 .78rem 'Montserrat',sans-serif; letter-spacing:.6px; text-transform:uppercase; }
         footer { text-align:center; padding:35px 20px; background-color:var(--fmhs-navy); color:#94A3B8; border-top:4px solid var(--fmhs-gold); font-size:.9rem; }
         .footer-content { display:flex; flex-direction:column; align-items:center; gap:15px; max-width:600px; margin:0 auto; }
         .insta-btn { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); color:#fff; font-family:'Montserrat',sans-serif; font-weight:800; font-size:.85rem; text-transform:uppercase; letter-spacing:.8px; padding:8px 18px; border-radius:20px; text-decoration:none; box-shadow:0 4px 12px rgba(220,39,67,.3); transition:transform .2s ease,opacity .2s ease; }
         .insta-btn:hover { transform:translateY(-2px); opacity:.9; }
-        @media (max-width:760px) { .zoom-gallery-container { grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; } .zoom-card { height:290px; } }
-        @media (max-width:520px) { header h1 { font-size:2.2rem; } nav { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; } nav a { margin:0; } main { padding:0 16px; } .zoom-gallery-container { grid-template-columns:1fr; gap:18px; } .zoom-card { height:300px; } h2.section-title { font-size:1.45rem; } }
-        @media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior:auto !important; transition-duration:.01ms !important; animation-duration:.01ms !important; } }
+        @media (max-width:760px) { .competition-feature { grid-template-columns:1fr; } .competition-cover { min-height:300px; } .competition-info { padding:24px; } .event-photo img { height:300px; } }
+        @media (max-width:520px) { header h1 { font-size:2.2rem; } nav { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; } nav a { margin:0; } main { padding:0 16px; } h2.section-title { font-size:1.45rem; } .competition-timeline { padding-left:26px; } .competition-timeline::before { left:7px; } .competition-entry::before { left:-25px; } .competition-cover { min-height:240px; } .competition-info { padding:20px; } .competition-info h3 { font-size:1.35rem; } .event-photos { grid-template-columns:1fr; } .event-photo img { height:auto; max-height:75vh; min-height:250px; } }
+        @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto !important; transition-duration:.01ms !important; animation-duration:.01ms !important; } }
     </style>
 </head>
 <body>
@@ -61,7 +76,7 @@
         <div class="hero-badge">The Crew</div>
         <h1>Meet Our Members</h1>
         <p>Behind every great trophy is an unhinged bus ride and way too much caffeine.</p>
-        <a href="https://fortmillspeechanddebate.ludus.com/index.php" target="_blank" class="hero-cta-btn">Support / Sponsor Us</a>
+        <a href="https://fortmillspeechanddebate.ludus.com/index.php" target="_blank" rel="noopener noreferrer" class="hero-cta-btn">Support / Sponsor Us</a>
     </header>
     <nav>
         <a href="index.html">Home</a>
@@ -76,28 +91,45 @@
         <div class="quote-card fade-element"><div class="quote-text">"If you talk fast enough, nobody realizes you completely made up your third contention on the spot."</div><div class="quote-author">— Jordan, Public Forum Debater</div></div>
         <div class="quote-card fade-element"><div class="quote-text">"My emotional support water bottle and I have survived 4 tournaments this semester and we are both running on 2% battery."</div><div class="quote-author">— Taylor, Dramatic Interpretation</div></div>
 
-        <h2 class="section-title fade-element">Captured in the Wild (Team Gallery)</h2>
-        <p class="fade-element" style="color:var(--text-muted);margin-bottom:30px;">A few favorite moments from the team, all in one place.</p>
-        <div class="zoom-gallery-container">
-            <div class="zoom-card-wrapper"><div class="zoom-card"><img src="team.photos/images/IMG_1829.jpeg" alt="Team photo IMG 1829"><div class="zoom-overlay-content"><div class="zoom-badge">Photo 01</div><h3>Team Moment</h3><p>November 7, 2026 competition</p></div></div></div>
-            <div class="zoom-card-wrapper"><div class="zoom-card"><img src="team.photos/images/IMG_1830.jpeg" alt="Team photo IMG 1830"><div class="zoom-overlay-content"><div class="zoom-badge">Photo 02</div><h3>Team Moment</h3><p>November 7, 2026 competition</p></div></div></div>
-            <div class="zoom-card-wrapper"><div class="zoom-card"><img src="team.photos/images/IMG_1831.jpeg" alt="Team photo IMG 1831"><div class="zoom-overlay-content"><div class="zoom-badge">Photo 03</div><h3>Team Moment</h3><p>November 7, 2026 competition</p></div></div></div>
-            <div class="zoom-card-wrapper"><div class="zoom-card"><img src="team.photos/images/IMG_1835.jpeg" alt="Team photo IMG 1835"><div class="zoom-overlay-content"><div class="zoom-badge">Photo 04</div><h3>Team Moment</h3><p>November 7, 2026 competition</p></div></div></div>
-            <div class="zoom-card-wrapper"><div class="zoom-card"><img src="team.photos/images/IMG_1836.jpeg" alt="Team photo IMG 1836"><div class="zoom-overlay-content"><div class="zoom-badge">Photo 05</div><h3>Team Moment</h3><p>November 7, 2026 competition</p></div></div></div>
-            <div class="zoom-card-wrapper"><div class="zoom-card"><img src="team.photos/images/IMG_4868.jpeg" alt="Team photo IMG 4868"><div class="zoom-overlay-content"><div class="zoom-badge">Photo 06</div><h3>Team Moment</h3><p>November 7, 2026 competition</p></div></div></div>
-            <div class="zoom-card-wrapper"><div class="zoom-card"><img src="team.photos/images/IMG_4869.jpeg" alt="Team photo IMG 4869"><div class="zoom-overlay-content"><div class="zoom-badge">Photo 07</div><h3>Team Moment</h3><p>November 7, 2026 competition</p></div></div></div>
-            <div class="zoom-card-wrapper"><div class="zoom-card"><img src="team.photos/images/IMG_4870.jpeg" alt="Team photo IMG 4870"><div class="zoom-overlay-content"><div class="zoom-badge">Photo 08</div><h3>Team Moment</h3><p>November 7, 2026 competition</p></div></div></div>
-            <div class="zoom-card-wrapper"><div class="zoom-card"><img src="team.photos/images/IMG_4871.jpeg" alt="Team photo IMG 4871"><div class="zoom-overlay-content"><div class="zoom-badge">Photo 09</div><h3>Team Moment</h3><p>November 7, 2026 competition</p></div></div></div>
-            <div class="zoom-card-wrapper"><div class="zoom-card"><img src="team.photos/images/IMG_4872.jpeg" alt="Team photo IMG 4872"><div class="zoom-overlay-content"><div class="zoom-badge">Photo 10</div><h3>Team Moment</h3><p>November 7, 2026 competition</p></div></div></div>
-            <div class="zoom-card-wrapper"><div class="zoom-card"><img src="team.photos/images/IMG_4873.jpeg" alt="Team photo IMG 4873"><div class="zoom-overlay-content"><div class="zoom-badge">Photo 11</div><h3>Team Moment</h3><p>November 7, 2026 competition</p></div></div></div>
-            <div class="zoom-card-wrapper"><div class="zoom-card"><img src="team.photos/images/IMG_4874.jpeg" alt="Team photo IMG 4874"><div class="zoom-overlay-content"><div class="zoom-badge">Photo 12</div><h3>Team Moment</h3><p>November 7, 2026 competition</p></div></div></div>
-            <div class="zoom-card-wrapper"><div class="zoom-card"><img src="team.photos/images/IMG_4875.jpeg" alt="Team photo IMG 4875"><div class="zoom-overlay-content"><div class="zoom-badge">Photo 13</div><h3>Team Moment</h3><p>November 7, 2026 competition</p></div></div></div>
-            <div class="zoom-card-wrapper"><div class="zoom-card"><img src="team.photos/images/IMG_4876.jpeg" alt="Team photo IMG 4876"><div class="zoom-overlay-content"><div class="zoom-badge">Photo 14</div><h3>Team Moment</h3><p>November 7, 2026 competition</p></div></div></div>
+        <h2 class="section-title fade-element">Competition Timeline</h2>
+        <p class="fade-element" style="color:var(--text-muted);margin-bottom:30px;">Select a competition to browse its photos.</p>
+        <div class="competition-timeline">
+            <details class="competition-entry">
+                <summary class="competition-feature" aria-label="November 7, 2026 competition; open to view photos">
+                    <div class="competition-cover">
+                        <img src="team.photos/images/IMG_1829.jpeg" alt="Featured photo from the November 7, 2026 competition" loading="lazy">
+                        <span class="competition-cover-label">Competition 01</span>
+                    </div>
+                    <div class="competition-info">
+                        <p class="competition-date">November 7, 2026</p>
+                        <h3>November Competition</h3>
+                        <p>Photos and moments from the team's competition day.</p>
+                        <span class="photo-count">14 photos</span>
+                        <span class="photo-toggle"><span class="toggle-icon" aria-hidden="true">＋</span><span class="toggle-label">View competition photos</span></span>
+                    </div>
+                </summary>
+                <div class="event-photos" aria-label="Photos from the November 7, 2026 competition">
+                    <figure class="event-photo"><img src="team.photos/images/IMG_1829.jpeg" alt="Competition photo 1" loading="lazy"><figcaption>Photo 01</figcaption></figure>
+                    <figure class="event-photo"><img src="team.photos/images/IMG_1830.jpeg" alt="Competition photo 2" loading="lazy"><figcaption>Photo 02</figcaption></figure>
+                    <figure class="event-photo"><img src="team.photos/images/IMG_1831.jpeg" alt="Competition photo 3" loading="lazy"><figcaption>Photo 03</figcaption></figure>
+                    <figure class="event-photo"><img src="team.photos/images/IMG_1835.jpeg" alt="Competition photo 4" loading="lazy"><figcaption>Photo 04</figcaption></figure>
+                    <figure class="event-photo"><img src="team.photos/images/IMG_1836.jpeg" alt="Competition photo 5" loading="lazy"><figcaption>Photo 05</figcaption></figure>
+                    <figure class="event-photo"><img src="team.photos/images/IMG_4868.jpeg" alt="Competition photo 6" loading="lazy"><figcaption>Photo 06</figcaption></figure>
+                    <figure class="event-photo"><img src="team.photos/images/IMG_4869.jpeg" alt="Competition photo 7" loading="lazy"><figcaption>Photo 07</figcaption></figure>
+                    <figure class="event-photo"><img src="team.photos/images/IMG_4870.jpeg" alt="Competition photo 8" loading="lazy"><figcaption>Photo 08</figcaption></figure>
+                    <figure class="event-photo"><img src="team.photos/images/IMG_4871.jpeg" alt="Competition photo 9" loading="lazy"><figcaption>Photo 09</figcaption></figure>
+                    <figure class="event-photo"><img src="team.photos/images/IMG_4872.jpeg" alt="Competition photo 10" loading="lazy"><figcaption>Photo 10</figcaption></figure>
+                    <figure class="event-photo"><img src="team.photos/images/IMG_4873.jpeg" alt="Competition photo 11" loading="lazy"><figcaption>Photo 11</figcaption></figure>
+                    <figure class="event-photo"><img src="team.photos/images/IMG_4874.jpeg" alt="Competition photo 12" loading="lazy"><figcaption>Photo 12</figcaption></figure>
+                    <figure class="event-photo"><img src="team.photos/images/IMG_4875.jpeg" alt="Competition photo 13" loading="lazy"><figcaption>Photo 13</figcaption></figure>
+                    <figure class="event-photo"><img src="team.photos/images/IMG_4876.jpeg" alt="Competition photo 14" loading="lazy"><figcaption>Photo 14</figcaption></figure>
+                </div>
+            </details>
         </div>
     </main>
     <footer>
         <div class="footer-content">
-            <a href="https://instagram.com" target="_blank" class="insta-btn">📸 Follow us on Instagram</a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="insta-btn">📸 Follow us on Instagram</a>
             <p>© FMHS Speech &amp; Debate Club | Contact: hradeca@fortmillschools.org</p>
         </div>
     </footer>
@@ -114,6 +146,10 @@
                     });
                 }
             });
+        });
+        document.querySelectorAll('.competition-entry').forEach(entry => {
+            const label = entry.querySelector('.toggle-label');
+            entry.addEventListener('toggle', () => { label.textContent = entry.open ? 'Hide competition photos' : 'View competition photos'; });
         });
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
