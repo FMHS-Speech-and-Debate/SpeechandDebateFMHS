@@ -60,14 +60,14 @@
         .event-photos[hidden] { display:none; }
         @keyframes gallery-reveal { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
         .event-photo { margin:0; overflow:hidden; border-radius:12px; background:#fff; box-shadow:0 6px 18px rgba(0,0,0,.14); border-bottom:4px solid var(--fmhs-gold); }
-        .event-photo img { display:block; width:100%; max-height:72vh; object-fit:contain; background:var(--fmhs-navy); }
+        .event-photo img, .event-photo video { display:block; width:100%; max-height:72vh; object-fit:contain; background:var(--fmhs-navy); }
         .event-photo figcaption { padding:10px 14px; color:var(--fmhs-navy); font:800 .82rem 'Montserrat',sans-serif; letter-spacing:.4px; }
         footer { text-align:center; padding:35px 20px; background:var(--fmhs-navy); color:#94A3B8; border-top:4px solid var(--fmhs-gold); font-size:.9rem; }
         .footer-content { display:flex; flex-direction:column; align-items:center; gap:15px; max-width:600px; margin:0 auto; }
         .insta-btn { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); color:#fff; font:800 .85rem 'Montserrat',sans-serif; text-transform:uppercase; letter-spacing:.8px; padding:8px 18px; border-radius:20px; text-decoration:none; box-shadow:0 4px 12px rgba(220,39,67,.3); transition:transform .2s ease,opacity .2s ease; }
         .insta-btn:hover { transform:translateY(-2px); opacity:.9; }
         @media (max-width:760px) { .competition-feature { grid-template-columns:1fr; } .competition-cover { min-height:300px; } .competition-info { padding:24px; } }
-        @media (max-width:520px) { header h1 { font-size:2.2rem; } nav { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; } nav a { margin:0; } main { padding:0 16px; } h2.section-title { font-size:1.45rem; } .competition-timeline { padding-left:26px; } .competition-timeline::before { left:7px; } .competition-entry::before { left:-25px; } .competition-cover { min-height:240px; } .competition-info { padding:20px; } .competition-info h3 { font-size:1.35rem; } .event-photo img { max-height:68vh; } }
+        @media (max-width:520px) { header h1 { font-size:2.2rem; } nav { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; } nav a { margin:0; } main { padding:0 16px; } h2.section-title { font-size:1.45rem; } .competition-timeline { padding-left:26px; } .competition-timeline::before { left:7px; } .competition-entry::before { left:-25px; } .competition-cover { min-height:240px; } .competition-info { padding:20px; } .competition-info h3 { font-size:1.35rem; } .event-photo img, .event-photo video { max-height:68vh; } }
         @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto !important; transition-duration:.01ms !important; animation-duration:.01ms !important; } }
     </style>
 </head>
@@ -98,15 +98,15 @@
             <article class="competition-entry">
                 <div class="competition-feature">
                     <div class="competition-cover">
-                        <img src="team.photos/images/IMG_1829.jpeg" alt="Featured photo from the November 7, 2026 competition" loading="lazy">
+                        <img src="team.photos/IMG_4881.jpeg" alt="Featured photo from the November 7, 2026 competition" loading="lazy">
                         <span class="competition-cover-label">Competition 01</span>
-                        <span class="cover-caption">Gibberish: first one in the morning</span>
+                        <span class="cover-caption">Tournament day highlights</span>
                     </div>
                     <div class="competition-info">
                         <p class="competition-date">November 7, 2026</p>
                         <h3>November Competition</h3>
-                        <p>Photos and moments from the team's competition day.</p>
-                        <span class="photo-count">14 photos</span>
+                        <p>Photos and video moments from the team's competition day.</p>
+                        <span class="photo-count">6 media items</span>
                         <button class="photo-toggle" type="button" aria-expanded="false" aria-controls="november-photos">
                             <span class="toggle-icon" aria-hidden="true">＋</span>
                             <span class="toggle-label">View competition photos</span>
@@ -114,19 +114,36 @@
                     </div>
                 </div>
                 <div class="event-photos" id="november-photos" hidden>
-                    <figure class="event-photo"><img src="team.photos/images/IMG_1830.jpeg" alt="Competition photo 2" loading="lazy"><figcaption>Gibberish: walking in like we own the campus</figcaption></figure>
-                    <figure class="event-photo"><img src="team.photos/images/IMG_1831.jpeg" alt="Competition photo 3" loading="lazy"><figcaption>Gibberish: chaos but organized chaos</figcaption></figure>
-                    <figure class="event-photo"><img src="team.photos/images/IMG_1835.jpeg" alt="Competition photo 4" loading="lazy"><figcaption>Gibberish: one more round and a lot of caffeine</figcaption></figure>
-                    <figure class="event-photo"><img src="team.photos/images/IMG_1836.jpeg" alt="Competition photo 5" loading="lazy"><figcaption>Gibberish: tiny awards, giant energy</figcaption></figure>
-                    <figure class="event-photo"><img src="team.photos/images/IMG_4868.jpeg" alt="Competition photo 6" loading="lazy"><figcaption>Gibberish: weirdly serious and extremely dramatic</figcaption></figure>
-                    <figure class="event-photo"><img src="team.photos/images/IMG_4869.jpeg" alt="Competition photo 7" loading="lazy"><figcaption>Gibberish: team mode activated</figcaption></figure>
-                    <figure class="event-photo"><img src="team.photos/images/IMG_4870.jpeg" alt="Competition photo 8" loading="lazy"><figcaption>Gibberish: patience, panic, and a little sparkle</figcaption></figure>
-                    <figure class="event-photo"><img src="team.photos/images/IMG_4871.jpeg" alt="Competition photo 9" loading="lazy"><figcaption>Gibberish: not sure what this face means but it works</figcaption></figure>
-                    <figure class="event-photo"><img src="team.photos/images/IMG_4872.jpeg" alt="Competition photo 10" loading="lazy"><figcaption>Gibberish: post-round energy</figcaption></figure>
-                    <figure class="event-photo"><img src="team.photos/images/IMG_4873.jpeg" alt="Competition photo 11" loading="lazy"><figcaption>Gibberish: the camera caught the mood</figcaption></figure>
-                    <figure class="event-photo"><img src="team.photos/images/IMG_4874.jpeg" alt="Competition photo 12" loading="lazy"><figcaption>Gibberish: perfect lighting and questionable decisions</figcaption></figure>
-                    <figure class="event-photo"><img src="team.photos/images/IMG_4875.jpeg" alt="Competition photo 13" loading="lazy"><figcaption>Gibberish: one more photo before we collapse</figcaption></figure>
-                    <figure class="event-photo"><img src="team.photos/images/IMG_4876.jpeg" alt="Competition photo 14" loading="lazy"><figcaption>Gibberish: the team ending on a strong note</figcaption></figure>
+                    <figure class="event-photo">
+                        <img src="team.photos/IMG_4881.jpeg" alt="Team moment snapshot" loading="lazy">
+                        <figcaption>Team moment snapshot</figcaption>
+                    </figure>
+                    <figure class="event-photo">
+                        <img src="team.photos/IMG_4871.jpeg" alt="Competition photo 4871" loading="lazy">
+                        <figcaption>Competition snapshot 4871</figcaption>
+                    </figure>
+                    <figure class="event-photo">
+                        <img src="team.photos/IMG_4873.jpeg" alt="Competition photo 4873" loading="lazy">
+                        <figcaption>Competition snapshot 4873</figcaption>
+                    </figure>
+                    <figure class="event-photo">
+                        <img src="team.photos/IMG_4875.jpeg" alt="Competition photo 4875" loading="lazy">
+                        <figcaption>Competition snapshot 4875</figcaption>
+                    </figure>
+                    <figure class="event-photo">
+                        <video controls preload="metadata">
+                            <source src="team.photos/IMG_4879.mov" type="video/quicktime">
+                            Your browser does not support the video tag.
+                        </video>
+                        <figcaption>Video highlight 1 (IMG_4879)</figcaption>
+                    </figure>
+                    <figure class="event-photo">
+                        <video controls preload="metadata">
+                            <source src="team.photos/IMG_4881.mov" type="video/quicktime">
+                            Your browser does not support the video tag.
+                        </video>
+                        <figcaption>Video highlight 2 (IMG_4881)</figcaption>
+                    </figure>
                 </div>
             </article>
         </div>
