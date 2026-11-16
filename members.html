@@ -36,7 +36,6 @@
         .quote-text { font-style:italic; font-size:1.05rem; color:var(--fmhs-navy); font-weight:600; margin-bottom:12px; }
         .quote-author { font:800 .9rem 'Montserrat',sans-serif; color:var(--text-muted); text-transform:uppercase; letter-spacing:.5px; }
 
-        /* One competition card expands inline to reveal its own vertically scrollable page photos. */
         .competition-timeline { position:relative; margin:30px 0 50px; padding-left:34px; }
         .competition-timeline::before { content:''; position:absolute; left:10px; top:20px; bottom:20px; width:3px; border-radius:3px; background:var(--fmhs-gold); }
         .competition-entry { position:relative; }
@@ -62,6 +61,8 @@
         .event-photo { margin:0; overflow:hidden; border-radius:12px; background:#fff; box-shadow:0 6px 18px rgba(0,0,0,.14); border-bottom:4px solid var(--fmhs-gold); }
         .event-photo img, .event-photo video { display:block; width:100%; max-height:72vh; object-fit:contain; background:var(--fmhs-navy); }
         .event-photo figcaption { padding:10px 14px; color:var(--fmhs-navy); font:800 .82rem 'Montserrat',sans-serif; letter-spacing:.4px; }
+        .sound-toggle-btn { position:absolute; top:12px; right:12px; background:rgba(10,30,63,0.85); color:#fff; border:2px solid var(--fmhs-gold); border-radius:20px; padding:6px 12px; font:800 0.75rem 'Montserrat',sans-serif; cursor:pointer; z-index:3; display:flex; align-items:center; gap:6px; backdrop-filter:blur(4px); transition:background 0.2s ease; }
+        .sound-toggle-btn:hover { background:var(--fmhs-gold); color:var(--fmhs-navy); }
         footer { text-align:center; padding:35px 20px; background:var(--fmhs-navy); color:#94A3B8; border-top:4px solid var(--fmhs-gold); font-size:.9rem; }
         .footer-content { display:flex; flex-direction:column; align-items:center; gap:15px; max-width:600px; margin:0 auto; }
         .insta-btn { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); color:#fff; font:800 .85rem 'Montserrat',sans-serif; text-transform:uppercase; letter-spacing:.8px; padding:8px 18px; border-radius:20px; text-decoration:none; box-shadow:0 4px 12px rgba(220,39,67,.3); transition:transform .2s ease,opacity .2s ease; }
@@ -87,10 +88,12 @@
         <a href="members.html" class="active">The Team</a>
     </nav>
     <main>
+        <!-- WALL OF ICONIC QUOTES SECTION COMMENTED OUT 
         <h2 class="section-title fade-element">Wall of Iconic Quotes</h2>
         <div class="quote-card fade-element"><div class="quote-text">"I spent 15 hours writing a case about agricultural policy just to lose round 1 because my judge's favorite color was blue."</div><div class="quote-author">— Alex, Varsity Lincoln-Douglas</div></div>
         <div class="quote-card fade-element"><div class="quote-text">"If you talk fast enough, nobody realizes you completely made up your third contention on the spot."</div><div class="quote-author">— Jordan, Public Forum Debater</div></div>
         <div class="quote-card fade-element"><div class="quote-text">"My emotional support water bottle and I have survived 4 tournaments this semester and we are both running on 2% battery."</div><div class="quote-author">— Taylor, Dramatic Interpretation</div></div>
+        -->
 
         <h2 class="section-title fade-element">Competition Timeline</h2>
         <p class="fade-element" style="color:var(--text-muted);margin-bottom:30px;">Choose a competition to expand its photo gallery.</p>
@@ -98,7 +101,7 @@
             <article class="competition-entry">
                 <div class="competition-feature">
                     <div class="competition-cover">
-                        <img src="team.photos/IMG_4881.jpeg" alt="Featured photo from the November 7, 2026 competition" loading="lazy">
+                        <img src="team.photos/images/IMG_4869.jpeg" alt="Featured photo from the November 7, 2026 competition" loading="lazy">
                         <span class="competition-cover-label">Competition 01</span>
                         <span class="cover-caption">Tournament day highlights</span>
                     </div>
@@ -115,35 +118,47 @@
                 </div>
                 <div class="event-photos" id="november-photos" hidden>
                     <figure class="event-photo">
-                        <img src="team.photos/IMG_4881.jpeg" alt="Team moment snapshot" loading="lazy">
+                        <img src="team.photos/images/IMG_4869.jpeg" alt="Team moment snapshot" loading="lazy">
                         <figcaption>Team moment snapshot</figcaption>
                     </figure>
                     <figure class="event-photo">
-                        <img src="team.photos/IMG_4871.jpeg" alt="Competition photo 4871" loading="lazy">
+                        <img src="team.photos/images/IMG_4871.jpeg" alt="Competition photo 4871" loading="lazy">
                         <figcaption>Competition snapshot 4871</figcaption>
                     </figure>
                     <figure class="event-photo">
-                        <img src="team.photos/IMG_4873.jpeg" alt="Competition photo 4873" loading="lazy">
+                        <img src="team.photos/images/IMG_4873.jpeg" alt="Competition photo 4873" loading="lazy">
                         <figcaption>Competition snapshot 4873</figcaption>
                     </figure>
                     <figure class="event-photo">
-                        <img src="team.photos/IMG_4875.jpeg" alt="Competition photo 4875" loading="lazy">
+                        <img src="team.photos/images/IMG_4875.jpeg" alt="Competition photo 4875" loading="lazy">
                         <figcaption>Competition snapshot 4875</figcaption>
                     </figure>
-                    <figure class="event-photo">
-                        <video controls preload="metadata">
-                            <source src="team.photos/IMG_4879.mov" type="video/quicktime">
-                            Your browser does not support the video tag.
-                        </video>
-                        <figcaption>Video highlight 1 (IMG_4879)</figcaption>
-                    </figure>
-                    <figure class="event-photo">
-                        <video controls preload="metadata">
-                            <source src="team.photos/IMG_4881.mov" type="video/quicktime">
-                            Your browser does not support the video tag.
-                        </video>
-                        <figcaption>Video highlight 2 (IMG_4881)</figcaption>
-                    </figure>
+                    
+                    <!-- Media Item 2: IMG_4879.mov (with sound toggle) -->
+                    <div class="event-photo">
+                        <div class="zoom-card" data-zoom-card style="position:relative; overflow:hidden; border-radius:12px;">
+                            <button type="button" class="sound-toggle-btn" onclick="toggleSound(this)">🔇 Unmute Sound</button>
+                            <video src="team.photos/images/IMG_4879.mov" autoplay muted loop playsinline style="width:100%; display:block;"></video>
+                            <div class="zoom-overlay-content" style="padding:10px 14px; background:var(--fmhs-navy); color:#fff;">
+                                <div class="zoom-badge" style="font:800 .7rem 'Montserrat',sans-serif; background:var(--fmhs-gold); color:var(--fmhs-navy); display:inline-block; padding:2px 8px; border-radius:10px; margin-bottom:4px;">Highlight 02</div>
+                                <h3 style="margin:0 0 4px; font-size:1rem;">Behind the Scenes Clip</h3>
+                                <p style="margin:0; font-size:.85rem; color:#BFDBFE;">Catching the authentic tournament chaos in motion.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Media Item 3: IMG_4881.mov (with sound toggle) -->
+                    <div class="event-photo">
+                        <div class="zoom-card" data-zoom-card style="position:relative; overflow:hidden; border-radius:12px;">
+                            <button type="button" class="sound-toggle-btn" onclick="toggleSound(this)">🔇 Unmute Sound</button>
+                            <video src="team.photos/images/IMG_4881.mov" autoplay muted loop playsinline style="width:100%; display:block;"></video>
+                            <div class="zoom-overlay-content" style="padding:10px 14px; background:var(--fmhs-navy); color:#fff;">
+                                <div class="zoom-badge" style="font:800 .7rem 'Montserrat',sans-serif; background:var(--fmhs-gold); color:var(--fmhs-navy); display:inline-block; padding:2px 8px; border-radius:10px; margin-bottom:4px;">Highlight 03</div>
+                                <h3 style="margin:0 0 4px; font-size:1rem;">Team Energy Live</h3>
+                                <p style="margin:0; font-size:.85rem; color:#BFDBFE;">Unmatched dedication and a whole lot of fun.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </article>
         </div>
@@ -151,7 +166,7 @@
     <footer>
         <div class="footer-content">
             <a href="https://www.instagram.com/fmhs_debate?mdxt=MTJxNG8wN2pjaDI3Zg==" target="_blank" rel="noopener noreferrer" class="insta-btn">📸 Follow us on Instagram</a>
-            <p>© FMHS Speech &amp; Debate Club | Contact: hradeca@fortmillschools.org</p>
+            <p>© FMHS Speech &amp; Debate Club | Contact: hradyca@fortmillschools.org</p>
         </div>
     </footer>
     <script>
@@ -178,6 +193,16 @@
                 button.querySelector('.toggle-label').textContent = expanded ? 'View competition photos' : 'Close competition photos';
             });
         });
+        function toggleSound(btn) {
+            const video = btn.parentElement.querySelector('video');
+            if (video.muted) {
+                video.muted = false;
+                btn.textContent = '🔊 Mute Sound';
+            } else {
+                video.muted = true;
+                btn.textContent = '🔇 Unmute Sound';
+            }
+        }
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
             header.style.opacity = Math.max(0, Math.min(1, 1 - window.scrollY / 300));
